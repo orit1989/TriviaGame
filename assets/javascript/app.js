@@ -11,7 +11,7 @@ $(document).ready(function () {
         },
 
         {
-            q: "What did Ross give Phoebe, because she never had on when she was little?",
+            q: "What did Ross give Phoebe, because she never had one when she was little?",
             opt1: "A dog",
             opt2: "A wagon",
             opt3: "A bicycle",
@@ -55,7 +55,7 @@ $(document).ready(function () {
     var correctAnswer = 0;
     var wrongAnsweer = 0;
     var unAnswered = 0;
-    var counter = 5;
+    var counter = 15;
     var questionIndex = 0;
     var intervalId;
 
@@ -106,7 +106,6 @@ $(document).ready(function () {
     $("button").on('click', function () {
 
         var userSelect = $(this).text();
-        console.log('this is my correct answer ' + questions[questionIndex].a);
         stop();
         $("#question").hide();
         $("#answerOptions").hide();
@@ -147,7 +146,7 @@ $(document).ready(function () {
     }
 
     $("#restartGame").on('click', function () {
-        counter = 5;
+        counter = 15;
         questionIndex = 0;
         correctAnswer = 0;
         wrongAnsweer = 0;
@@ -159,9 +158,9 @@ $(document).ready(function () {
     });
 
     function nextQuestion () {
-        counter = 5;
+        counter = 15;
         questionIndex++;
-        setTimeout(renderQuestion, 2000);
+        setTimeout(renderQuestion, 3000);
     }
 
     function stop() {

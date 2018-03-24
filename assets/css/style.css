@@ -1,40 +1,50 @@
-img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    height: 230px;
-}
-
-body {
+.jumbotron {
     background-color: black;
-}
-
-#theGame {
-    color:black;
-    text-align: center;
-    font-size: 20px;
-    background-color: white;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    height: 330px;
-}
-
-#time {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding-top: 20px;
 }
 
 button {
-    width: 400px;
-    margin: 10px;
+    margin-top: 10px;
+}
+ #opt4 {
+     margin-bottom: 20px;
+ }
+
+ #image {
+     margin-bottom: 20px;
+ }
+
+body {
+    background-color: black;
+    color: white;
 }
 
-.jumbotron {
-    background-color: black;
+#opening {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+#time {
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+#question {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#answer {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#final {
+    font-size: 30px;
+}
+
+#unAnswered {
+    
+    margin-bottom: 10px;
 }
 
 
