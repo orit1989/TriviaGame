@@ -6,7 +6,8 @@ $(document).ready(function () {
             opt2: "Birthday Gift",
             opt3: "He ruined all her childhood memories",
             opt4: "He likes Monica better than Ross",
-            a: "He ruined all her childhood memories"
+            a: "He ruined all her childhood memories",
+            img: "assets/images/monica.gif"
         },
 
         {
@@ -15,7 +16,8 @@ $(document).ready(function () {
             opt2: "A wagon",
             opt3: "A bicycle",
             opt4: "A doll",
-            a: "A bicycle"
+            a: "A bicycle",
+            img: "assets/images/phoebe.gif"
         },
 
         {
@@ -24,7 +26,8 @@ $(document).ready(function () {
             opt2: "Drives",
             opt3: "He never does",
             opt4: "He cancels class",
-            a: "Roller Skating"
+            a: "Roller Skating",
+            img: "assets/images/ross.gif"
         },
 
         {
@@ -33,7 +36,8 @@ $(document).ready(function () {
             opt2: "To move",
             opt3: "To get a new job at the Iron Dragon",
             opt4: "To move in with Chandler",
-            a: "To make jam"
+            a: "To make jam",
+            img: "assets/images/jam.gif"
         },
 
         {
@@ -42,68 +46,122 @@ $(document).ready(function () {
             opt2: "His identical hand twin",
             opt3: "A 2 headed turtle",
             opt4: "Food",
-            a: "His identical hand twin"
+            a: "His identical hand twin",
+            img: "assets/images/joey.gif"
         }
 
     ];
 
-    //create a variable for correct/wrong/unanswered questions
     var correctAnswer = 0;
     var wrongAnsweer = 0;
     var unAnswered = 0;
-    //seconds for each question
     var counter = 5;
     var questionIndex = 0;
     var intervalId;
 
-    $("#answer").hide();
+    $("#answerOptions").hide();
+    $("#restartGame").hide();
+    $("#image").hide();
+
 
     $("#startGame").on('click', function () {
-
         $("#friends").hide();
-        intervalId = setInterval(decrement, 1000);
         renderQuestion();
     });
 
     function renderQuestion() {
+        $("#answer").hide();
+        $("#time").show();
+        decrement();
+
         // If there are still more questions, render the next one.
-        if (questionIndex <= (questions.length - 1)) {
-            $("#answer").show();
+        if (questionIndex < (questions.length)) {
             $("#question").text(questions[questionIndex].q);
             $("#opt1").text(questions[questionIndex].opt1);
             $("#opt2").text(questions[questionIndex].opt2);
             $("#opt3").text(questions[questionIndex].opt3);
             $("#opt4").text(questions[questionIndex].opt4);
+            $("#image").attr("src",questions[questionIndex].img);
+            $("#image").hide();
+            $("#question").show();
+            $("#answerOptions").show();
+            intervalId = setInterval(decrement, 1000);
 
         }
         // If there aren't, render the end game screen.
         else {
+            $("#time").hide();
+            $("#image").hide();
             $("#final").text("Here's How You Did!");
-            $("#correctAnswers").text(correctAnswer);
-            $("#wrongAnswers").text(wrongAnsweer);
-            $("#unAnswered").text(unAnswered);
+            $("#correctAnswers").text("Correct Answers: " + correctAnswer);
+            $("#wrongAnswers").text("Wrong Answers: " + wrongAnsweer);
+            $("#unAnswered").text("Unanswered: " + unAnswered);
+            $("#endGame").show();
+            $("#restartGame").show();
 
         }
+
     };
 
-    $("#answer").on('click', function () {
+    $("button").on('click', function () {
+
+        var userSelect = $(this).text();
+        console.log('this is my correct answer ' + questions[questionIndex].a);
+        stop();
         $("#question").hide();
-        $("#answer").hide();
-        $("#time").hide();
-        renderQuestion();
+        $("#answerOptions").hide();
+
+        if (userSelect === questions[questionIndex].a) {
+            $("#answer").text("Correct!");
+            $("#answer").show();
+            $("#image").show();
+
+            correctAnswer++;
+            
+        }
+        else {
+            $("#answer").text("Nope! The Correct Answer Was: " + questions[questionIndex].a + ".");
+            $("#answer").show();
+            $("#image").show();
+
+            wrongAnsweer++;
+        }
+        nextQuestion();
     });
 
-    // function revealAnswer (){
-
-
-    // }
-
     function decrement() {
-        counter--;
         $("#time").text("Time Remaining: " + counter);
         if (counter === 0) {
             stop();
+            $("#question").hide();
+            $("#answerOptions").hide();
+            $("#answer").text("Out Of Time! The Correct Answer was: " + questions[questionIndex].a + ".");
+            $("#answer").show();
+            $("#image").show();
+            unAnswered++;
+            nextQuestion();
         }
+        else {
+            counter--;
+        }
+    }
+
+    $("#restartGame").on('click', function () {
+        counter = 5;
+        questionIndex = 0;
+        correctAnswer = 0;
+        wrongAnsweer = 0;
+        unAnswered = 0;
+        $("#image").hide();
+        $("#endGame").hide();
+        $("#restartGame").hide();
+        renderQuestion();
+    });
+
+    function nextQuestion () {
+        counter = 5;
+        questionIndex++;
+        setTimeout(renderQuestion, 2000);
     }
 
     function stop() {
