@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    //create a variable for my guestions
+    //variable for my guestions 
     var questions = [{
             q: "Why does Monica receive her dad's Porsche?",
             opt1: "Wedding Gift",
@@ -63,7 +63,7 @@ $(document).ready(function () {
     $("#restartGame").hide();
     $("#image").hide();
 
-
+    // user click to start the game
     $("#startGame").on('click', function () {
         $("#friends").hide();
         renderQuestion();
@@ -88,7 +88,7 @@ $(document).ready(function () {
             intervalId = setInterval(decrement, 1000);
 
         }
-        // If there aren't, render the end game screen.
+        // If there aren't, render the end game screen. Dispaly how many correct answers, wrong answer, unanswered.
         else {
             $("#time").hide();
             $("#image").hide();
@@ -102,7 +102,7 @@ $(document).ready(function () {
         }
 
     };
-
+// when user clicks on one of the answer options
     $("button").on('click', function () {
 
         var userSelect = $(this).text();
@@ -130,11 +130,12 @@ $(document).ready(function () {
 
     function decrement() {
         $("#time").text("Time Remaining: " + counter);
+         //if time runs out and the user didnt guess an answer, itll display "out of time" and what the correct answer was along with an image.
         if (counter === 0) {
             stop();
             $("#question").hide();
             $("#answerOptions").hide();
-            $("#answer").text("Out Of Time! The Correct Answer was: " + questions[questionIndex].a + ".");
+            $("#answer").text("Out Of Time! The Correct Answer Was: " + questions[questionIndex].a + ".");
             $("#answer").show();
             $("#image").show();
             unAnswered++;
@@ -144,7 +145,7 @@ $(document).ready(function () {
             counter--;
         }
     }
-
+    //user clicks the button to start over the game
     $("#restartGame").on('click', function () {
         counter = 15;
         questionIndex = 0;
@@ -160,21 +161,13 @@ $(document).ready(function () {
     function nextQuestion () {
         counter = 15;
         questionIndex++;
+        //next guestion will appear after 3 second.
         setTimeout(renderQuestion, 3000);
     }
 
     function stop() {
         clearInterval(intervalId);
     }
-
-    //set a timeout of 30 seconds for each question
-    //if user answers right, the guestion and answers will disappear and a message of "Correct!" will appear along with an image.
-    //if user answers wrong, the question and answers will disappear and two messages will come up, "Nope!" and "The correct answer was:" along with an image.
-    //each question will be set for 30 seconds.
-    //if time runs out and the user didnt guess an answer, itll display "out of time" and what the correct answer was along with an image.
-    //next guestion will appear after 3 second.
-    //when all the questions end, there'll be displayed how many correct answers, wrong answer, unanswered.
-    //creat a button to start over the game
-
+ 
 
 });
